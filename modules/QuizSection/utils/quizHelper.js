@@ -33,10 +33,17 @@ export const handleOptionClick = async ({
     if (result.correct) {
       onScoreUpdate(true, result?.correctAnswers, result?.incorrectAnswers);
       triggerConfetti();
-      setFunFact(result.funFacts || destination.fun_fact?.[0]);
+
+      const randomIndex = Math.floor(Math.random() * 2); // Generates either 0 or 1
+      setFunFact(
+        result.funFacts?.[randomIndex] || destination.fun_fact?.[randomIndex]
+      );
     } else {
       onScoreUpdate(false, result?.correctAnswers, result?.incorrectAnswers);
-      setFunFact(result.trivia || destination.trivia?.[0]);
+      const randomIndex = Math.floor(Math.random() * 2); // Generates either 0 or 1
+      setFunFact(
+        result.trivia?.[randomIndex] || destination.trivia?.[randomIndex]
+      );
     }
 
     setShowFunFact(true);
