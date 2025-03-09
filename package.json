@@ -9,8 +9,11 @@
     "lint": "next lint"
   },
   "eslintConfig": {
-  "extends": ["eslint:recommended"]
-},
+    "useEslintrc": false,
+    "rules": {
+      "no-debugger": "off"
+    }
+  },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",

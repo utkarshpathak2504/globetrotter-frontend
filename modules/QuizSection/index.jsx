@@ -11,24 +11,30 @@ import {
   handleUsernameSubmit,
   loadStoredUsername,
 } from "./utils/quizHelper";
+import { LoadingSpinner } from "./Styles/quizStyles";
 
 export default function QuizSection({ destination }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);  // Set loading to true initially
   const [score, setScore] = useState({ correct: 0, incorrect: 0 });
   const [showUsernameModal, setShowUsernameModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [username, setUsername] = useState("");
   const [userData, setUserData] = useState({});
 
+  // Fetch user data when username changes
   useEffect(() => {
-    fetchUserData(username, setUserData);
-  }, [username, score]);
+    if (username) {
+      fetchUserData(username, setUserData);
+    }
+  }, [username]);
 
+  // Load stored username on initial render
   useEffect(() => {
     loadStoredUsername(setUsername, setShowUsernameModal);
   }, []);
 
+  // Set loading state when destination is available
   useEffect(() => {
     if (destination) {
       setLoading(false);
@@ -63,18 +69,22 @@ export default function QuizSection({ destination }) {
         />
       )}
 
-      <Quiz
-        destination={destination}
-        loading={loading}
-        score={score}
-        onScoreUpdate={(isCorrect, totalCorrect, totalIncorrect) =>
-          handleScoreUpdate(isCorrect, totalCorrect, totalIncorrect, setScore)
-        }
-        onNextQuestion={() =>
-          fetchRandomDestination(router, destination, setLoading)
-        }
-        userData={userData}
-      />
+      {loading ? (
+        <div>  <LoadingSpinner /></div>
+      ) : (
+        <Quiz
+          destination={destination}
+          loading={loading}
+          score={score}
+          onScoreUpdate={(isCorrect, totalCorrect, totalIncorrect) =>
+            handleScoreUpdate(isCorrect, totalCorrect, totalIncorrect, setScore)
+          }
+          onNextQuestion={() =>
+            fetchRandomDestination(router, destination, setLoading)
+          }
+          userData={userData}
+        />
+      )}
     </>
   );
 }
