@@ -23,23 +23,23 @@ export default function QuizSection({ destination }) {
   const [userData, setUserData] = useState({});
 
   // Fetch user data when username changes
-  useEffect(() => {
-    if (username) {
-      fetchUserData(username, setUserData);
-    }
-  }, [username]);
+  // useEffect(() => {
+  //   if (username) {
+  //     fetchUserData(username, setUserData);
+  //   }
+  // }, [username]);
 
-  // Load stored username on initial render
-  useEffect(() => {
-    loadStoredUsername(setUsername, setShowUsernameModal);
-  }, []);
+  // // Load stored username on initial render
+  // useEffect(() => {
+  //   loadStoredUsername(setUsername, setShowUsernameModal);
+  // }, []);
 
-  // Set loading state when destination is available
-  useEffect(() => {
-    if (destination) {
-      setLoading(false);
-    }
-  }, [destination]);
+  // // Set loading state when destination is available
+  // useEffect(() => {
+  //   if (destination) {
+  //     setLoading(false);
+  //   }
+  // }, [destination]);
 
   return (
     <>
