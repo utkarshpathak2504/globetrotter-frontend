@@ -61,7 +61,7 @@ export const handleNextClick = ({
 
 export const handleInviteFriends = async (userData) => {
   const fallbackInviteText =
-    "🎮 Hey! Try out this fun game! Here’s the link: https://yourgame.com/join 🚀";
+    "🎮 Hey! Try out this fun game! Here’s the link: https://globetrotter-frontend-ashen.vercel.app/quiz 🚀";
 
   try {
     const { inviteText = "" } = await generateInvite(
