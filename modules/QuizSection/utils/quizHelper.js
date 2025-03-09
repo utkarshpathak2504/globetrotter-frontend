@@ -1,5 +1,4 @@
 import { generateInvite, submitAnswer } from "./api";
-import toast from "react-hot-toast";
 import { triggerConfetti } from "./confettiHelper";
 
 export const handleOptionClick = async ({
@@ -78,10 +77,8 @@ export const handleInviteFriends = async (userData) => {
     navigator.clipboard
       .writeText(shareText)
       .then(() => {
-        toast.success("Link copied! Share it with your friends to play.", {
-          duration: 3000,
-          style: { background: "#333", color: "#fff" },
-        });
+
+        alert("Link copied! Share it with your friends to play.");
       })
       .catch((err) => {
         console.error("Failed to copy link: ", err);
@@ -92,7 +89,7 @@ export const handleInviteFriends = async (userData) => {
       fallbackInviteText
     )}`;
     window.open(fallbackUrl, "_blank");
-    toast.error("Failed to fetch invite data. Using fallback message.");
+    alert("Failed to fetch invite data. Using fallback message.");
   }
 };
 
