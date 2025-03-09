@@ -1,7 +1,7 @@
 import QuizSection from "../../modules/QuizSection";
 import { getRandomDestination } from "../../modules/QuizSection/utils/api";
 
-export const HomePage = ({ destination = {} }) => {
+const HomePage = ({ destination = {} }) => {
   return <QuizSection destination={destination} />;
 };
 
@@ -26,3 +26,5 @@ export const getServerSideProps = async () => {
   }
 };
 
+
+export default HomePage
