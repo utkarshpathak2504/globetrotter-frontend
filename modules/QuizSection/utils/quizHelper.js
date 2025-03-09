@@ -77,7 +77,6 @@ export const handleInviteFriends = async (userData) => {
     navigator.clipboard
       .writeText(shareText)
       .then(() => {
-
         alert("Link copied! Share it with your friends to play.");
       })
       .catch((err) => {

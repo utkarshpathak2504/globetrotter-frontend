@@ -197,24 +197,42 @@ export const OptionButton = styled.button`
   padding: 1rem;
   border-radius: 10px;
   background-color: ${(props) => {
-    if (props.selected && props.correct) return "#00cec9";
-    if (props.selected && !props.correct) return "#ff7675";
-    if (!props.selected && props.isCorrectOption && props.showResult)
+    // Only show colors when we're showing results
+    if (!props.showResult) return "white";
+    
+    // Show green for correct answers (either selected or to highlight the correct one)
+    if ((props.selected && props.correct) || 
+        (!props.selected && props.isCorrectOption)) 
       return "#00cec9";
+    
+    // Show red only for selected incorrect answers
+    if (props.selected && !props.correct) 
+      return "#ff7675";
+    
+    // Default white for unselected options
     return "white";
   }};
-  color: ${(props) =>
-    props.selected || (props.isCorrectOption && props.showResult)
-      ? "white"
-      : "#2d3436"};
-  border: 2px solid
-    ${(props) => {
-      if (props.selected && props.correct) return "#00cec9";
-      if (props.selected && !props.correct) return "#ff7675";
-      if (!props.selected && props.isCorrectOption && props.showResult)
-        return "#00cec9";
-      return "#e0e0e0";
-    }};
+  
+  color: ${(props) => {
+    if (!props.showResult) return "#2d3436";
+    if ((props.selected && props.correct) || 
+        (!props.selected && props.isCorrectOption)) 
+      return "white";
+    if (props.selected && !props.correct) 
+      return "white";
+    return "#2d3436";
+  }};
+  
+  border: 2px solid ${(props) => {
+    if (!props.showResult) return "#e0e0e0";
+    if ((props.selected && props.correct) || 
+        (!props.selected && props.isCorrectOption)) 
+      return "#00cec9";
+    if (props.selected && !props.correct) 
+      return "#ff7675";
+    return "#e0e0e0";
+  }};
+  
   font-weight: 600;
   font-size: 1rem;
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
@@ -238,12 +256,12 @@ export const OptionButton = styled.button`
   }
 
   &:after {
-    content: ${(props) =>
-      props.selected && props.correct
-        ? '"✓"'
-        : props.selected && !props.correct
-        ? '"✗"'
-        : '""'};
+    content: ${(props) => {
+      if (!props.showResult) return '""';
+      if (props.selected && props.correct) return '"✓"';
+      if (props.selected && !props.correct) return '"✗"';
+      return '""';
+    }};
     position: absolute;
     right: 10px;
     font-size: 1.2rem;
