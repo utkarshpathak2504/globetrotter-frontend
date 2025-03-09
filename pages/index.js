@@ -1,29 +1,9 @@
-import QuizSection from "../../modules/QuizSection";
-import { getRandomDestination } from "../../modules/QuizSection/utils/api";
+import React from 'react'
 
-const HomePage = ({ destination = {} }) => {
-  return <QuizSection destination={destination} />;
-};
+const index = () => {
+  return (
+    <div>Check /quiz route</div>
+  )
+}
 
-export const getServerSideProps = async () => {
-  try {
-    const response = await getRandomDestination();
-    const { city, country, ...destination } = response;
-
-    return {
-      props: {
-        destination,
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching question:", error);
-
-    return {
-      props: {
-        destination: {},
-      },
-    };
-  }
-};
-
-export default HomePage;
+export default index
