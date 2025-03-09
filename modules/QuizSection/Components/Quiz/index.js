@@ -66,6 +66,7 @@ const Quiz = ({
         <OptionButtons
           options={destination.options}
           selectedOption={selectedOption}
+          isCorrect={isCorrect}
           onOptionClick={(option) =>
             handleOptionClick({
               option,

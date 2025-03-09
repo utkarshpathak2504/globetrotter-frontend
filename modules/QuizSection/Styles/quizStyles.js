@@ -193,77 +193,140 @@ export const OptionsContainer = styled.div`
   z-index: 2;
 `;
 
+// export const OptionButton = styled.button`
+//   padding: 1rem;
+//   border-radius: 10px;
+//   background-color: ${(props) => {
+//     // Only show colors when we're showing results
+//     if (!props.showResult) return "white";
+    
+//     // Show green for correct answers (either selected or to highlight the correct one)
+//     if ((props.selected && props.correct) || 
+//         (!props.selected && props.isCorrectOption)) 
+//       return "#00cec9";
+    
+//     // Show red only for selected incorrect answers
+//     if (props.selected && !props.correct) 
+//       return "#ff7675";
+    
+//     // Default white for unselected options
+//     return "white";
+//   }};
+  
+//   color: ${(props) => {
+//     if (!props.showResult) return "#2d3436";
+//     if ((props.selected && props.correct) || 
+//         (!props.selected && props.isCorrectOption)) 
+//       return "white";
+//     if (props.selected && !props.correct) 
+//       return "white";
+//     return "#2d3436";
+//   }};
+  
+//   border: 2px solid ${(props) => {
+//     if (!props.showResult) return "#e0e0e0";
+//     if ((props.selected && props.correct) || 
+//         (!props.selected && props.isCorrectOption)) 
+//       return "#00cec9";
+//     if (props.selected && !props.correct) 
+//       return "#ff7675";
+//     return "#e0e0e0";
+//   }};
+  
+//   font-weight: 600;
+//   font-size: 1rem;
+//   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+//   transition: all 0.3s ease;
+//   position: relative;
+//   overflow: hidden;
+//   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+//   opacity: ${(props) =>
+//     props.disabled &&
+//     !props.selected &&
+//     !(props.isCorrectOption && props.showResult)
+//       ? 0.7
+//       : 1};
+
+//   &:hover {
+//     transform: ${(props) => (props.disabled ? "none" : "translateY(-2px)")};
+//     box-shadow: ${(props) =>
+//       props.disabled
+//         ? "0 4px 6px rgba(0, 0, 0, 0.1)"
+//         : "0 7px 10px rgba(0, 0, 0, 0.15)"};
+//   }
+
+//   &:after {
+//     content: ${(props) => {
+//       if (!props.showResult) return '""';
+//       if (props.selected && props.correct) return '"✓"';
+//       if (props.selected && !props.correct) return '"✗"';
+//       return '""';
+//     }};
+//     position: absolute;
+//     right: 10px;
+//     font-size: 1.2rem;
+//   }
+// `;
+
+
+
 export const OptionButton = styled.button`
-  padding: 1rem;
-  border-radius: 10px;
-  background-color: ${(props) => {
-    // Only show colors when we're showing results
-    if (!props.showResult) return "white";
-    
-    // Show green for correct answers (either selected or to highlight the correct one)
-    if ((props.selected && props.correct) || 
-        (!props.selected && props.isCorrectOption)) 
-      return "#00cec9";
-    
-    // Show red only for selected incorrect answers
-    if (props.selected && !props.correct) 
-      return "#ff7675";
-    
-    // Default white for unselected options
-    return "white";
-  }};
-  
-  color: ${(props) => {
-    if (!props.showResult) return "#2d3436";
-    if ((props.selected && props.correct) || 
-        (!props.selected && props.isCorrectOption)) 
-      return "white";
-    if (props.selected && !props.correct) 
-      return "white";
-    return "#2d3436";
-  }};
-  
-  border: 2px solid ${(props) => {
-    if (!props.showResult) return "#e0e0e0";
-    if ((props.selected && props.correct) || 
-        (!props.selected && props.isCorrectOption)) 
-      return "#00cec9";
-    if (props.selected && !props.correct) 
-      return "#ff7675";
-    return "#e0e0e0";
-  }};
-  
-  font-weight: 600;
-  font-size: 1rem;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  opacity: ${(props) =>
+  transition: all 0.2s ease;
+  outline: none;
+  border: 2px solid #e0e0e0;
+  background-color: white;
+  color: #333;
+
+  ${(props) =>
+    !props.disabled &&
+    `
+    &:hover {
+      border-color: #a0a0a0;
+      background-color: #f8f8f8;
+    }
+  `}
+
+  /* Correct option (Green) */
+  ${(props) =>
+    props.isCorrect &&
+    props.showResult &&
+    `
+    border-color: #4caf50;
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #2e7d32;
+  `}
+
+  /* Selected option (Before checking - Orange) */
+  ${(props) =>
+    props.selected &&
+    !props.showResult &&
+    `
+    border-color: #ff9800;
+    background-color: rgba(255, 152, 0, 0.1);
+    color: #e65100;
+  `}
+
+  /* Selected wrong option (After checking - Red) */
+  ${(props) =>
+    props.selected &&
+    props.showResult &&
+    !props.isCorrect &&
+    `
+    border-color: #f44336;
+    background-color: rgba(244, 67, 54, 0.1);
+    color: #d32f2f;
+  `}
+
+  /* Disabled state */
+  ${(props) =>
     props.disabled &&
-    !props.selected &&
-    !(props.isCorrectOption && props.showResult)
-      ? 0.7
-      : 1};
-
-  &:hover {
-    transform: ${(props) => (props.disabled ? "none" : "translateY(-2px)")};
-    box-shadow: ${(props) =>
-      props.disabled
-        ? "0 4px 6px rgba(0, 0, 0, 0.1)"
-        : "0 7px 10px rgba(0, 0, 0, 0.15)"};
-  }
-
-  &:after {
-    content: ${(props) => {
-      if (!props.showResult) return '""';
-      if (props.selected && props.correct) return '"✓"';
-      if (props.selected && !props.correct) return '"✗"';
-      return '""';
-    }};
-    position: absolute;
-    right: 10px;
-    font-size: 1.2rem;
-  }
+    `
+    opacity: ${props.showResult ? "1" : "0.7"};
+  `}
 `;
