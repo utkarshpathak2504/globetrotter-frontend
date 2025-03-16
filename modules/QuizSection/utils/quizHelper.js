@@ -79,25 +79,28 @@ export const handleInviteFriends = async (userData) => {
     const shareText = inviteText.trim() ? inviteText : fallbackInviteText;
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
 
-    window.open(whatsappUrl, "_blank");
+    // Use window.location.href for better reliability on mobile devices
+    window.location.href = whatsappUrl;
 
-    navigator.clipboard
-      .writeText(shareText)
-      .then(() => {
-        alert("Link copied! Share it with your friends to play.");
-      })
-      .catch((err) => {
-        console.error("Failed to copy link: ", err);
-      });
+    // Clipboard fallback with user interaction
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard
+        .writeText(shareText)
+        .then(() => alert("Link copied! Share it with your friends to play."))
+        .catch(() => alert("Couldn't copy the link. Please copy it manually."));
+    } else {
+      alert("Copy not supported on this browser.");
+    }
   } catch (error) {
     console.error("Error fetching invite data:", error);
-    const fallbackUrl = `https://wa.me/?text=${encodeURIComponent(
-      fallbackInviteText
-    )}`;
-    window.open(fallbackUrl, "_blank");
+    const fallbackUrl = `https://wa.me/?text=${encodeURIComponent(fallbackInviteText)}`;
+
+    // Open fallback URL directly
+    window.location.href = fallbackUrl;
     alert("Failed to fetch invite data. Using fallback message.");
   }
 };
+
 
 ////////////////
 import { registerUser, getUserScore } from "./api";
